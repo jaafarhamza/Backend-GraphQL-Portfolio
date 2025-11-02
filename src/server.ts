@@ -3,6 +3,7 @@ import cors from 'cors';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { env } from './config/env';
+import { connectDatabase } from './config/database';
 
 const app = express();
 
@@ -16,7 +17,10 @@ app.get('/health', (_req, res) => {
 });
 
 async function startServer() {
-  // TODO: Add GraphQL typeDefs and resolvers
+  // Connect to MongoDB
+  await connectDatabase();
+
+  // Add GraphQL typeDefs and resolvers
   const server = new ApolloServer({
     typeDefs: `
       type Query {
