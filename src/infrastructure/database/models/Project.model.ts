@@ -29,7 +29,6 @@ const ProjectSchema = new Schema<ProjectDocument>(
   }
 );
 
-ProjectSchema.index({ slug: 1 });
 ProjectSchema.index({ featured: 1 });
 ProjectSchema.index({ status: 1 });
 

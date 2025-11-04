@@ -13,12 +13,14 @@ import { ProfileRepository } from './infrastructure/database/repositories/Profil
 import { UserRepository } from './infrastructure/database/repositories/UserRepository';
 import { SkillRepository } from './infrastructure/database/repositories/SkillRepository';
 import { ProjectRepository } from './infrastructure/database/repositories/ProjectRepository';
+import { ExperienceRepository } from './infrastructure/database/repositories/ExperienceRepository';
 
 // Services
 import { ProfileService } from './application/services/ProfileService';
 import { AuthService } from './application/services/AuthService';
 import { SkillService } from './application/services/SkillService';
 import { ProjectService } from './application/services/ProjectService';
+import { ExperienceService } from './application/services/ExperienceService';
 import { JwtService } from './infrastructure/security/JwtService';
 import { PasswordHasher } from './infrastructure/security/PasswordHasher';
 
@@ -42,6 +44,7 @@ async function startServer() {
   const userRepository = new UserRepository();
   const skillRepository = new SkillRepository();
   const projectRepository = new ProjectRepository();
+  const experienceRepository = new ExperienceRepository();
   const jwtService = new JwtService();
   const passwordHasher = new PasswordHasher();
 
@@ -49,6 +52,7 @@ async function startServer() {
   const authService = new AuthService(userRepository, jwtService, passwordHasher);
   const skillService = new SkillService(skillRepository);
   const projectService = new ProjectService(projectRepository);
+  const experienceService = new ExperienceService(experienceRepository);
 
   // Create Apollo Server
   const server = new ApolloServer<GraphQLContext>({
@@ -67,13 +71,13 @@ async function startServer() {
         if (token) {
           try {
             const user = jwtService.verify(token);
-            return { user, profileService, authService, skillService, projectService };
+            return { user, profileService, authService, skillService, projectService, experienceService };
           } catch (error) {
-            return { profileService, authService, skillService, projectService };
+            return { profileService, authService, skillService, projectService, experienceService };
           }
         }
 
-        return { profileService, authService, skillService, projectService };
+        return { profileService, authService, skillService, projectService, experienceService };
       },
     })
   );

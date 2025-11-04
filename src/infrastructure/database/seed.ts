@@ -2,9 +2,11 @@ import { UserModel } from './models/User.model';
 import { ProfileModel } from './models/Profile.model';
 import { SkillModel } from './models/Skill.model';
 import { ProjectModel } from './models/Project.model';
+import { ExperienceModel } from './models/Experience.model';
 import { UserRole } from '../../domain/entities/User.entity';
 import { SkillCategory } from '../../domain/entities/Skill.entity';
 import { ProjectStatus } from '../../domain/entities/Project.entity';
+import { EmploymentType } from '../../domain/entities/Experience.entity';
 import { PasswordHasher } from '../security/PasswordHasher';
 import { env } from '../../config/env';
 
@@ -46,8 +48,10 @@ export async function seedDatabase() {
 
     // Seed skills
     const skillsCount = await SkillModel.countDocuments();
+    let skills;
+
     if (skillsCount === 0) {
-      const skills = await SkillModel.insertMany([
+      skills = await SkillModel.insertMany([
         { name: 'TypeScript', category: SkillCategory.LANGUAGE, level: 5 },
         { name: 'JavaScript', category: SkillCategory.LANGUAGE, level: 5 },
         { name: 'Node.js', category: SkillCategory.FRAMEWORK, level: 5 },
@@ -57,8 +61,13 @@ export async function seedDatabase() {
         { name: 'Docker', category: SkillCategory.TOOL, level: 4 },
       ]);
       console.log(`✅ ${skills.length} skills created`);
+    } else {
+      skills = await SkillModel.find().limit(7);
+    }
 
-      // Create sample projects
+    // Create sample projects
+    const projectsCount = await ProjectModel.countDocuments();
+    if (projectsCount === 0) {
       await ProjectModel.create({
         title: 'Portfolio Backend API',
         slug: 'portfolio-backend-api',
@@ -82,6 +91,52 @@ export async function seedDatabase() {
       });
 
       console.log('✅ Sample projects created');
+    }
+
+    // Create sample experiences
+    const experiencesCount = await ExperienceModel.countDocuments();
+    if (experiencesCount === 0) {
+      await ExperienceModel.create({
+        position: 'Senior Full Stack Developer',
+        company: 'Tech Company Inc.',
+        companyUrl: 'https://techcompany.example.com',
+        location: 'Remote',
+        employmentType: EmploymentType.FULL_TIME,
+        startDate: new Date('2022-01-01'),
+        current: true,
+        description: 'Leading development of scalable web applications using modern technologies',
+        responsibilities: [
+          'Architecting and implementing microservices',
+          'Mentoring junior developers',
+          'Code review and quality assurance',
+        ],
+        achievements: [
+          'Reduced API response time by 40%',
+          'Implemented CI/CD pipeline',
+          'Led migration to TypeScript',
+        ],
+        skills: skills.slice(0, 4).map((s) => s._id),
+      });
+
+      await ExperienceModel.create({
+        position: 'Full Stack Developer',
+        company: 'Startup XYZ',
+        location: 'San Francisco, CA',
+        employmentType: EmploymentType.FULL_TIME,
+        startDate: new Date('2020-06-01'),
+        endDate: new Date('2021-12-31'),
+        current: false,
+        description: 'Developed and maintained full-stack applications for e-commerce platform',
+        responsibilities: [
+          'Built RESTful APIs with Node.js',
+          'Developed responsive UIs with React',
+          'Database design and optimization',
+        ],
+        achievements: ['Increased conversion rate by 25%', 'Implemented real-time notifications'],
+        skills: skills.slice(2, 6).map((s) => s._id),
+      });
+
+      console.log('✅ Sample experiences created');
     }
 
     console.log('✅ Database seeded successfully');
