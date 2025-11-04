@@ -1,6 +1,9 @@
 import { GraphQLContext } from '../../context';
 import { requireAdmin } from '../../../../middleware/authMiddleware';
-import { CreateExperienceInput, UpdateExperienceInput } from '../../../../domain/entities/Experience.entity';
+import {
+  CreateExperienceInput,
+  UpdateExperienceInput,
+} from '../../../../domain/entities/Experience.entity';
 
 export const experienceMutations = {
   createExperience: async (
@@ -21,11 +24,7 @@ export const experienceMutations = {
     return context.experienceService.updateExperience(id, input);
   },
 
-  deleteExperience: async (
-    _: any,
-    { id }: { id: string },
-    context: GraphQLContext
-  ) => {
+  deleteExperience: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
     requireAdmin(context);
     return context.experienceService.deleteExperience(id);
   },

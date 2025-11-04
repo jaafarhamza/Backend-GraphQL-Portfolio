@@ -21,11 +21,7 @@ export const projectMutations = {
     return context.projectService.updateProject(id, input);
   },
 
-  deleteProject: async (
-    _: any,
-    { id }: { id: string },
-    context: GraphQLContext
-  ) => {
+  deleteProject: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
     requireAdmin(context);
     return context.projectService.deleteProject(id);
   },

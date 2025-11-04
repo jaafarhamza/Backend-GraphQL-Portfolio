@@ -1,5 +1,9 @@
 import { IExperienceRepository } from '../../../domain/repositories/IExperienceRepository';
-import { Experience, CreateExperienceInput, UpdateExperienceInput } from '../../../domain/entities/Experience.entity';
+import {
+  Experience,
+  CreateExperienceInput,
+  UpdateExperienceInput,
+} from '../../../domain/entities/Experience.entity';
 import { ExperienceModel } from '../models/Experience.model';
 
 export class ExperienceRepository implements IExperienceRepository {
@@ -48,7 +52,9 @@ export class ExperienceRepository implements IExperienceRepository {
   }
 
   async findCurrent(): Promise<Experience[]> {
-    const experiences = await ExperienceModel.find({ current: true }).sort({ startDate: -1 }).lean();
+    const experiences = await ExperienceModel.find({ current: true })
+      .sort({ startDate: -1 })
+      .lean();
     return experiences.map((exp) => ({
       id: (exp._id as any).toString(),
       position: exp.position,

@@ -11,8 +11,8 @@ export interface Skill {
   id: string;
   name: string;
   category: SkillCategory;
-  level?: number; 
-  icon?: string; 
+  level?: number;
+  icon?: string;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,5 +1,9 @@
 import { IProjectRepository } from '../../domain/repositories/IProjectRepository';
-import { Project, CreateProjectInput, UpdateProjectInput } from '../../domain/entities/Project.entity';
+import {
+  Project,
+  CreateProjectInput,
+  UpdateProjectInput,
+} from '../../domain/entities/Project.entity';
 
 export class ProjectService {
   constructor(private readonly projectRepository: IProjectRepository) {}

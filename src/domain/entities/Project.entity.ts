@@ -9,7 +9,7 @@ export interface Project {
   title: string;
   slug: string;
   description: string;
-  skillIds: string[]; 
+  skillIds: string[];
   repoUrl?: string;
   liveUrl?: string;
   imageUrls: string[];

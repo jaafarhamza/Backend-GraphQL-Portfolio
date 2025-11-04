@@ -71,7 +71,14 @@ async function startServer() {
         if (token) {
           try {
             const user = jwtService.verify(token);
-            return { user, profileService, authService, skillService, projectService, experienceService };
+            return {
+              user,
+              profileService,
+              authService,
+              skillService,
+              projectService,
+              experienceService,
+            };
           } catch (error) {
             return { profileService, authService, skillService, projectService, experienceService };
           }

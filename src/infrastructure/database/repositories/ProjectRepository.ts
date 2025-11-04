@@ -1,5 +1,9 @@
 import { IProjectRepository } from '../../../domain/repositories/IProjectRepository';
-import { Project, CreateProjectInput, UpdateProjectInput } from '../../../domain/entities/Project.entity';
+import {
+  Project,
+  CreateProjectInput,
+  UpdateProjectInput,
+} from '../../../domain/entities/Project.entity';
 import { ProjectModel } from '../models/Project.model';
 
 export class ProjectRepository implements IProjectRepository {

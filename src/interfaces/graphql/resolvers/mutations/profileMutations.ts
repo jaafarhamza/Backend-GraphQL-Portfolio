@@ -21,11 +21,7 @@ export const profileMutations = {
     return context.profileService.updateProfile(input);
   },
 
-  deleteProfile: async (
-    _: any,
-    __: any,
-    context: GraphQLContext
-  ) => {
+  deleteProfile: async (_: any, __: any, context: GraphQLContext) => {
     requireAdmin(context);
     return context.profileService.deleteProfile();
   },

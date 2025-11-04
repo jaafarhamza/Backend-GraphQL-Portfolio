@@ -1,5 +1,9 @@
 import { IProfileRepository } from '../../../domain/repositories/IProfileRepository';
-import { Profile, CreateProfileInput, UpdateProfileInput } from '../../../domain/entities/Profile.entity';
+import {
+  Profile,
+  CreateProfileInput,
+  UpdateProfileInput,
+} from '../../../domain/entities/Profile.entity';
 import { ProfileModel } from '../models/Profile.model';
 
 export class ProfileRepository implements IProfileRepository {

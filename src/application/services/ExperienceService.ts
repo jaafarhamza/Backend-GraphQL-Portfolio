@@ -1,5 +1,9 @@
 import { IExperienceRepository } from '../../domain/repositories/IExperienceRepository';
-import { Experience, CreateExperienceInput, UpdateExperienceInput } from '../../domain/entities/Experience.entity';
+import {
+  Experience,
+  CreateExperienceInput,
+  UpdateExperienceInput,
+} from '../../domain/entities/Experience.entity';
 
 export class ExperienceService {
   constructor(private readonly experienceRepository: IExperienceRepository) {}
