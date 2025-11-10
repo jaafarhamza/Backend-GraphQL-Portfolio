@@ -29,7 +29,7 @@ const app = express();
 // Middlewares
 app.use(
   cors({
-    origin: 'https://frontend-react-portfolio-sand.vercel.app/',
+    origin: 'https://frontend-react-portfolio-sand.vercel.app',
     credentials: true,
   })
 );
